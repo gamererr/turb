@@ -23,8 +23,26 @@ async def attachments_to_files(attached,spoiler=False):
 async def on_ready():
 	print("hello world!")
 
+randomness_sent = True
+messages = 0
+
 @client.event
 async def on_message(message):
-    return
+    
+    global randomness_sent
+    global messages
+
+    temp = message.author.name.upper()
+    randomphrase = ["shmoo balook", "your mom", "fartnite", '*holds out frog*\n"Quieres?"', "monke", "big chungus", temp]
+    
+    if randomness_sent:
+        messages = random.randrange(5, 10)
+        randomness_sent = False
+
+    messages -= 1
+
+    if messages == 0:
+        await message.channel.send(randomphrase[random.randrange(len(randomphrase))])
+        randomness_sent = True
 
 client.run(token)
